@@ -7,23 +7,23 @@ public class GestionArchivo {
     private static final String NOMBRE_ARCHIVO = "profesores.txt";
 
     /*
-    * El método altaProfesorArchivo(Profesor profesor) permite almacenar un profesor en el archivo.
-    *  Además, guarda el profesor en un archivo y muestra un mensaje de éxito o de que el profesor ya existe.
-    * */
+     * El método altaProfesorArchivo(Profesor profesor) permite almacenar un profesor en el archivo.
+     *  Además, guarda el profesor en un archivo y muestra un mensaje de éxito o de que el profesor ya existe.
+     * */
     public void altaProfesorArchivo(Profesor profesor) {
 
         try (BufferedWriter buffer = new BufferedWriter(new FileWriter(NOMBRE_ARCHIVO, true))) {
-                buffer.write(profesor.toString());
-                buffer.newLine();
+            buffer.write(profesor.toString());
+            buffer.newLine();
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error al escribir en el archivo"+ e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al escribir en el archivo" + e.getMessage());
         }
     }
 
     /*
-    * El método leerProfesoresArchivo() permite leer los profesores almacenados en el archivo.
-    *  Devuelve una lista con todos los profesores.
-    * */
+     * El método leerProfesoresArchivo() permite leer los profesores almacenados en el archivo.
+     *  Devuelve una lista con todos los profesores.
+     * */
     public List<Profesor> leerProfesoresArchivo() {
         List<Profesor> profesores = new ArrayList<>();
         try (BufferedReader buffer = new BufferedReader(new FileReader(NOMBRE_ARCHIVO))) {
@@ -34,15 +34,15 @@ public class GestionArchivo {
                 profesores.add(profesor);
             }
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error al leer el archivo"+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al leer el archivo" + e.getMessage());
         }
         return profesores;
     }
 
     /*
-    * El método actualizarProfesorArchivo(List<Profesor> profesores) permite actualizar los profesores almacenados en el archivo.
-    *  Además, guarda la lista actualizada en el archivo.
-    * */
+     * El método actualizarProfesorArchivo(List<Profesor> profesores) permite actualizar los profesores almacenados en el archivo.
+     *  Además, guarda la lista actualizada en el archivo.
+     * */
     public void actualizarProfesorArchivo(List<Profesor> profesores) {
         try (BufferedWriter buffer = new BufferedWriter(new FileWriter(NOMBRE_ARCHIVO, false))) {
             for (Profesor profesor : profesores) {
@@ -50,7 +50,7 @@ public class GestionArchivo {
                 buffer.newLine();
             }
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error al escribir en el archivo"+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al escribir en el archivo" + e.getMessage());
         }
     }
 }

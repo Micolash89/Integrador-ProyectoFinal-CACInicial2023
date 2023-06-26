@@ -4,7 +4,7 @@ public class Profesor {
 
     private String nombre;
     private String apellido;
-    private String  email;
+    private String email;
     private int dni;
     private String materia;
 
@@ -12,9 +12,9 @@ public class Profesor {
     }
 
     /*
-    * El constructor de la clase Profesor recibe como parámetros los atributos de la clase Profesor
-    *  y los asigna a los atributos de la misma.
-    * */
+     * El constructor de la clase Profesor recibe como parámetros los atributos de la clase Profesor
+     *  y los asigna a los atributos de la misma.
+     * */
     public Profesor(String nombre, String apellido, String email, int dni, String materia) {
         this.nombre = nombre;
         this.apellido = apellido;
@@ -24,74 +24,81 @@ public class Profesor {
     }
 
     /*
-    * El método getNombre retorna el valor del atributo nombre de la clase Profesor.
-    * */
+     * El método getNombre retorna el valor del atributo nombre de la clase Profesor.
+     * */
     public String getNombre() {
         return nombre;
     }
 
     /*
-    * El método setNombre recibe como parámetro el valor del atributo nombre de la clase Profesor.
-    * */
+     * El método setNombre recibe como parámetro el valor del atributo nombre de la clase Profesor.
+     * */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
     /*
-    * El método getApellido retorna el valor del atributo apellido de la clase Profesor.
-    * */
+     * El método getApellido retorna el valor del atributo apellido de la clase Profesor.
+     * */
     public String getApellido() {
         return apellido;
     }
+
     /*
-    * * El método setApellido recibe como parámetro el valor del atributo apellido de la clase Profesor.
-    * */
+     * * El método setApellido recibe como parámetro el valor del atributo apellido de la clase Profesor.
+     * */
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
+
     /*
-    * El método getEmail retorna el valor del atributo email de la clase Profesor.
-    * */
+     * El método getEmail retorna el valor del atributo email de la clase Profesor.
+     * */
     public String getEmail() {
         return email;
     }
+
     /*
-    * El método setEmail recibe como parámetro el valor del atributo email de la clase Profesor.
-    * */
+     * El método setEmail recibe como parámetro el valor del atributo email de la clase Profesor.
+     * */
     public void setEmail(String email) {
         this.email = email;
     }
+
     /*
-    * El método getDni retorna el valor del atributo dni de la clase Profesor.
-    * */
+     * El método getDni retorna el valor del atributo dni de la clase Profesor.
+     * */
     public int getDni() {
         return dni;
     }
+
     /*
-    * * El método setDni recibe como parámetro el valor del atributo dni de la clase Profesor.
-    * */
+     * * El método setDni recibe como parámetro el valor del atributo dni de la clase Profesor.
+     * */
     public void setDni(int dni) {
         this.dni = dni;
     }
 
     /*
-    * El método getMateria retorna el valor del atributo materia de la clase Profesor.
-    * */
+     * El método getMateria retorna el valor del atributo materia de la clase Profesor.
+     * */
     public String getMateria() {
         return materia;
     }
+
     /*
-    ** El método setMateria recibe como parámetro el valor del atributo materia de la clase Profesor.
-    * */
+     ** El método setMateria recibe como parámetro el valor del atributo materia de la clase Profesor.
+     * */
     public void setMateria(String materia) {
         this.materia = materia;
     }
 
     /*
-    * El método equals compara dos objetos de la clase Profesor segón sus atributos.
-    * Si los atributos son iguales, retorna true.
-    * Si los atributos son distintos, retorna false.
-    * El método equals debe ser sobreescrito para que funcione correctamente con la clase ArrayList.
-    * */
+     * El método equals compara dos objetos de la clase Profesor segón sus atributos.
+     * Si los atributos son iguales, retorna true.
+     * Si los atributos son distintos, retorna false.
+     * El método equals debe ser sobreescrito para que funcione correctamente con la clase ArrayList.
+     * */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -104,14 +111,15 @@ public class Profesor {
     public int hashCode() {
         return Objects.hash(nombre, apellido, email, dni, materia);
     }
+
     /*
-    * * El método toString retorna una cadena de caracteres que representa al objeto Profesor.
-    * * El método toString debe ser sobreescrito para que funcione correctamente con la clase ArrayList.
-    * * El método toString debe retornar los atributos separados por comas.
-    * */
+     * * El método toString retorna una cadena de caracteres que representa al objeto Profesor.
+     * * El método toString debe ser sobreescrito para que funcione correctamente con la clase ArrayList.
+     * * El método toString debe retornar los atributos separados por comas.
+     * */
     @Override
     public String toString() {
         return
-                 nombre + ',' + apellido + ',' + email + ',' + dni + ',' + materia ;
+                nombre + ',' + apellido + ',' + email + ',' + dni + ',' + materia;
     }
 }
