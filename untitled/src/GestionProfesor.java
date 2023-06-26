@@ -168,7 +168,7 @@ public class GestionProfesor {
     * El nombre debe tener entre 2 y 40 caracteres.
     * */
     public boolean validarNombre(String nombre){
-        if(nombre.length() >= 2 && nombre.length() <= 40){
+        if(nombre.trim().length() >= 2 && nombre.trim().length() <= 40){
             return true;
         }else {
             JOptionPane.showMessageDialog(null, "El nombre debe tener al menos 2 caracteres y no debe exceder los 40 caracteres");
@@ -181,7 +181,7 @@ public class GestionProfesor {
     * El apellido debe tener entre 2 y 40 caracteres.
     * */
     public boolean validarApellido(String apellido){
-        if(apellido.length() >= 2 && apellido.length() <= 40){
+        if(apellido.trim().length() >= 2 && apellido.trim().length() <= 40){
             return true;
         }else {
             JOptionPane.showMessageDialog(null, "El apellido debe tener al menos 2 caracteres y no debe exceder los 40 caracteres");
@@ -193,7 +193,7 @@ public class GestionProfesor {
     * El email debe tener entre 3 y 40 caracteres y contener un @".
     * */
     public boolean validarEmail(String email){
-        if(email.length() >= 11 && email.length() <= 40){
+        if(email.trim().length() >= 11 && email.trim().length() <= 40){
 
             if(email.contains("@")){
                 return true;
@@ -212,7 +212,7 @@ public class GestionProfesor {
     * El dni debe ser mayor a 0 y menor a 99999999.
     * */
     public boolean validarDni(int dni) {
-        if (dni > 0 && dni < 99999999) {
+        if (dni > 99999999 && dni < 10000000 ) {
             return true;
         } else {
             JOptionPane.showMessageDialog(null, "El dni debe ser menor a 8 digitos y mayor a 0");
@@ -224,7 +224,7 @@ public class GestionProfesor {
     * La materia debe tener entre 2 y 60 caracteres.
     * */
     public boolean validarMateria(String materia){
-        if(materia.length() >= 2 && materia.length() <= 60){
+        if(materia.trim().length() >= 2 && materia.trim().length() <= 60){
             return true;
         }else {
             JOptionPane.showMessageDialog(null, "La materia debe tener al menos 2 caracteres y no debe exceder los 60 caracteres");
