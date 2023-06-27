@@ -13,7 +13,7 @@ public class GestionProfesor {
 
     /*
      * El método cargarProfesores(Profesor profesor) permite cargar un profesor en la lista profesores si no existe previamente.
-     *  Además, guarda el profesor en un archivo y muestra un mensaje de éxito o de que el profesor ya existe.
+     * guarda el profesor en un archivo y muestra un mensaje de éxito o de que el profesor ya existe.
      * */
     public void cargarProfesores(Profesor profesor) {
         if (profesores.contains(profesor)) {
@@ -23,7 +23,7 @@ public class GestionProfesor {
         } else {
             profesores.add(profesor);
             miArchivoProfesor.altaProfesorArchivo(profesor);
-            JOptionPane.showMessageDialog(null, "Profesor cargado correctamente");
+            InterfazGrafica.mensajeExito("Se agrego un profesor exitosamente","OPERACIÓN EXITOSA");
         }
     }
 
@@ -33,10 +33,11 @@ public class GestionProfesor {
      *  Luego, guarda la lista actualizada en el archivo.
      * */
     public void actualizarProfesor(int indice) {
+        String input;
         int opcion;
 
         do {
-            opcion = Integer.valueOf(JOptionPane.showInputDialog(
+            input = JOptionPane.showInputDialog(
                     "Por favor seleccione la opción a actualizar" +
                             "\n Profesor:" + profesores.get(indice) +
                             "\n1. Nombre" +
@@ -44,34 +45,44 @@ public class GestionProfesor {
                             "\n3. E-mail" +
                             "\n4. DNI" +
                             "\n5. Materia" +
-                            "\n6. Salir"));
+                            "\n6. Salir y guardar");
+
+            if (input == null) {
+                InterfazGrafica.mensajeCancelar("Operación cancelada\n no se actualizo ningun profesor", "Cancelado");
+                profesores.clear();
+                profesores = miArchivoProfesor.leerProfesoresArchivo();
+                return;
+            }
+
+            opcion = Integer.valueOf(input);
+
             switch (opcion) {
                 case 1:
-                    String nombre = JOptionPane.showInputDialog("Por favor ingrese el nuevo nombre");
+                    String nombre = InterfazGrafica.mensajeIngreso("Por favor ingrese el nuevo nombre","NOMBRE");
                     if (validarNombre(nombre)) {
                         profesores.get(indice).setNombre(nombre);
                     }
                     break;
                 case 2:
-                    String apellido = JOptionPane.showInputDialog("Por favor ingrese el nuevo apellido");
+                    String apellido = InterfazGrafica.mensajeIngreso("Por favor ingrese el nuevo apellido","APELLIDO");
                     if (validarApellido(apellido)) {
                         profesores.get(indice).setApellido(apellido);
                     }
                     break;
                 case 3:
-                    String email = JOptionPane.showInputDialog("Por favor ingrese el nuevo E-mail");
+                    String email = InterfazGrafica.mensajeIngreso("Por favor ingrese el nuevo E-mail","E-MAIL");
                     if (validarEmail(email)) {
                         profesores.get(indice).setEmail(email);
                     }
                     break;
                 case 4:
-                    int dni = Integer.valueOf(JOptionPane.showInputDialog("Por favor ingrese el nuevo dni"));
+                    int dni = Integer.valueOf(InterfazGrafica.mensajeIngreso("Por favor ingrese el nuevo DNI","DNI"));
                     if (validarDni(dni)) {
                         profesores.get(indice).setDni(dni);
                     }
                     break;
                 case 5:
-                    String materia = JOptionPane.showInputDialog("Por favor ingrese la nueva materia");
+                    String materia = InterfazGrafica.mensajeIngreso("Por favor ingrese la nueva materia","MATERIA");
                     if (validarMateria(materia)) {
                         profesores.get(indice).setMateria(materia);
                     }
@@ -108,7 +119,7 @@ public class GestionProfesor {
 
         for (Profesor p : profesores) {
             if (p.getDni() == dni) {
-                JOptionPane.showMessageDialog(null, "Profesor encontrado:\n" + p.toString());
+                JOptionPane.showMessageDialog(null, "Profesor encontrado con el DNI: " + dni + "\nDetalles del profesor:\n" + p.toString());
                 bandera = 1;
             }
         }
@@ -119,8 +130,8 @@ public class GestionProfesor {
 
     /*
      * El método buscarProfesorNombre(String nombre) busca profesores en la lista profesores por su nombre.
-     *  Si encuentra uno o más profesores con el nombre dado, muestra una lista con los detalles de los profesores encontrados;
-     *  de lo contrario, muestra un mensaje indicando que el profesor no existe.
+     * Si encuentra uno o más profesores con el nombre dado, muestra una lista con los detalles de los profesores encontrados;
+     * de lo contrario, muestra un mensaje indicando que el profesor no existe.
      * */
     public void buscarProfesorNombre(String nombre) {
         if (nombre == null) {
@@ -152,19 +163,21 @@ public class GestionProfesor {
 
     /*
      * El método listaString() genera una representación en forma de cadena de texto de la lista de profesores, numerándolos.
+     * El método devuelve una cadena de texto con la lista de profesores.
+     *
+     *
      * */
     public String listaString() {
 
         String lista = "";
         int i = 0;
         for (Profesor p : profesores) {
-            lista += ++i + ". " + p.toString() + "\n";
+            lista += ++i + " - " + p.toString() + "\n";
         }
         return lista + '\n';
     }
 
     ///////////////////VALIDACIONES ///////////////////////////
-
     /*
      * El método validarNombre(String nombre) valida que el nombre ingresado sea correcto.
      * El nombre debe tener entre 2 y 40 caracteres.
@@ -216,7 +229,7 @@ public class GestionProfesor {
      * El dni debe ser mayor a 0 y menor a 99999999.
      * */
     public boolean validarDni(int dni) {
-        if (dni > 99999999 && dni < 10000000) {
+        if (dni > 99999 && dni < 100000000) {
             return true;
         } else {
             JOptionPane.showMessageDialog(null, "El dni debe ser menor a 8 digitos y mayor a 0");

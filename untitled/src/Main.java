@@ -6,7 +6,6 @@ public class Main {
 
     /*
     * El método main() permite ejecutar el sistema de gestión de profesores, solicitando al usuario que ingrese una opción.
-    * Si la opción es diferente de 6, se ejecuta el método correspondiente, si no se sale del sistema.
     * Es importante destacar que el sistema no controla errores en tiempo de ejecución, como por ejemplo la excepción NumberFormatException.
     * Por lo tanto, es crucial que el usuario ingrese un número entero cuando se solicita, ya que cualquier otro tipo de entrada podría generar un error.
     * Es responsabilidad del usuario asegurarse de ingresar un valor válido en forma de número entero para evitar problemas durante la ejecución del programa.
@@ -16,16 +15,17 @@ public class Main {
         int opcion;
         String input;
 
-        do {
 
-            input = JOptionPane.showInputDialog("Bienvenido al sistema de gestión de profesores" +
+        do {
+            input = InterfazGrafica.mensajeMenu("Bienvenido al sistema de gestión de profesores" +
                     "\nPor favor seleccione una opción: " +
                     "\n1. Agregar profesor" +
                     "\n2. Mostrar profesor" +
                     "\n3. Actualizar profesor" +
                     "\n4. Eliminar profesor" +
                     "\n5. Buscar profesor" +
-                    "\n6. Salir");
+                    "\n6. Salir",
+                    "MENU PINRCIPAL");
 
             if (input != null) {
                 if (input.trim().length() > 0) {
@@ -47,19 +47,20 @@ public class Main {
                             buscarProfesor();
                             break;
                         case 6:
-                            JOptionPane.showMessageDialog(null, "Gracias por utilizar el sistema");
+                            InterfazGrafica.mensajeProfe("Gracias por utilizar el sistema\n   Saddy Pacheco S.A.","HASTA LUEGO");
+                            //InterfazGrafica.mensajeExito("Gracias por utilizar el sistema","HASTA LUEGO");
+
                             break;
                         default:
                             JOptionPane.showMessageDialog(null, "Opción no válida");
                             break;
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Opción no válida");
+                    InterfazGrafica.mensajeAdvertencia("Opción no valida","ENTRADA INCORRECTA");
                     opcion = -1;
                 }
             } else {
-
-                JOptionPane.showMessageDialog(null, "Operación cancelada");
+                InterfazGrafica.mensajeCancelar("Operación cancelada","CANCELADO");
                 opcion = 6;
 
             }
@@ -80,9 +81,10 @@ public class Main {
 
         do {
 
-            nombre = JOptionPane.showInputDialog("Por favor ingrese el nombre del profesor");
+            //nombre = JOptionPane.showInputDialog();
+            nombre = InterfazGrafica.mensajeIngreso("Por favor ingrese el nombre del profesor","NOMBRE");
             if (nombre == null) {
-                JOptionPane.showMessageDialog(null, "Operación cancelada");
+                InterfazGrafica.mensajeCancelar("Operación cancelada","CANCELADO");
                 return;
             }
             profesor.setNombre(nombre);
@@ -125,6 +127,7 @@ public class Main {
             profesor.setMateria(materia);
         } while (!gestorProfesor.validarMateria(profesor.getMateria()));
 
+
         gestorProfesor.cargarProfesores(profesor);
 
     }
@@ -135,6 +138,7 @@ public class Main {
      la lista de profesores almacenados en el sistema.
     */
     public static void mostrarProfesor() {
+
         if (gestorProfesor.getProfesores().size() == 0) {
             JOptionPane.showMessageDialog(null, "No hay profesores en el sistema");
         } else {
