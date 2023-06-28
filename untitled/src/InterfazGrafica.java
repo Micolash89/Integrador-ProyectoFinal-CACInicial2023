@@ -7,7 +7,7 @@ public class InterfazGrafica {
     public static String mensajeMenu(String mensaje, String titulo) {
 
         ImageIcon icono = new ImageIcon("images/icono.png");
-        icono = new ImageIcon(icono.getImage().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH));
+        icono = new ImageIcon(icono.getImage().getScaledInstance(60, 60, java.awt.Image.SCALE_SMOOTH));
         return (String) JOptionPane.showInputDialog(null,mensaje, titulo,JOptionPane.QUESTION_MESSAGE, icono, null, null);
 
     }
@@ -15,7 +15,6 @@ public class InterfazGrafica {
     public static String mensajeIngreso(String cadena,String TITULO) {
 
         return JOptionPane.showInputDialog(null,cadena,TITULO,JOptionPane.QUESTION_MESSAGE);
-
 
     }
 
@@ -49,7 +48,7 @@ public class InterfazGrafica {
     public static void mensajeProfe(String cadena, String titulo) {
 
         ImageIcon icono = new ImageIcon("images/profe.png");
-        icono = new ImageIcon(icono.getImage().getScaledInstance(70, 80, java.awt.Image.SCALE_SMOOTH));
+        icono = new ImageIcon(icono.getImage().getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH));
         JOptionPane.showMessageDialog(null, cadena, titulo, JOptionPane.WARNING_MESSAGE,icono);
 
     }
