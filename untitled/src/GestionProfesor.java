@@ -216,7 +216,7 @@ public class GestionProfesor {
      * El dni debe ser mayor a 0 y menor a 99999999.
      * */
     public boolean validarDni(int dni) {
-        if (dni > 99999999 && dni < 10000000) {
+        if (dni > 999999 && dni < 100000000) {
             return true;
         } else {
             JOptionPane.showMessageDialog(null, "El dni debe ser menor a 8 digitos y mayor a 0");
