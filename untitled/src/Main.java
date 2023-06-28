@@ -5,26 +5,25 @@ public class Main {
     public static GestionProfesor gestorProfesor = new GestionProfesor();
 
     /*
-    * El método main() permite ejecutar el sistema de gestión de profesores, solicitando al usuario que ingrese una opción.
-    * Es importante destacar que el sistema no controla errores en tiempo de ejecución, como por ejemplo la excepción NumberFormatException.
-    * Por lo tanto, es crucial que el usuario ingrese un número entero cuando se solicita, ya que cualquier otro tipo de entrada podría generar un error.
-    * Es responsabilidad del usuario asegurarse de ingresar un valor válido en forma de número entero para evitar problemas durante la ejecución del programa.
-    * */
+     * El método main() permite ejecutar el sistema de gestión de profesores, solicitando al usuario que ingrese una opción.
+     * Es importante destacar que el sistema no controla errores en tiempo de ejecución, como por ejemplo la excepción NumberFormatException.
+     * Por lo tanto, es crucial que el usuario ingrese un número entero cuando se solicita, ya que cualquier otro tipo de entrada podría generar un error.
+     * Es responsabilidad del usuario asegurarse de ingresar un valor válido en forma de número entero para evitar problemas durante la ejecución del programa.
+     * */
     public static void main(String[] args) {
 
         int opcion;
         String input;
 
-
         do {
             input = InterfazGrafica.mensajeMenu("Bienvenido al sistema de gestión de profesores" +
-                    "\nPor favor seleccione una opción: " +
-                    "\n1. Agregar profesor" +
-                    "\n2. Mostrar profesor" +
-                    "\n3. Actualizar profesor" +
-                    "\n4. Eliminar profesor" +
-                    "\n5. Buscar profesor" +
-                    "\n6. Salir",
+                            "\nPor favor seleccione una opción: " +
+                            "\n1. Agregar profesor" +
+                            "\n2. Mostrar profesor" +
+                            "\n3. Actualizar profesor" +
+                            "\n4. Eliminar profesor" +
+                            "\n5. Buscar profesor" +
+                            "\n6. Salir",
                     "MENU PINRCIPAL");
 
             if (input != null) {
@@ -47,7 +46,7 @@ public class Main {
                             buscarProfesor();
                             break;
                         case 6:
-                            InterfazGrafica.mensajeProfe("Gracias por utilizar el sistema\n   Saddy Pacheco S.A.","HASTA LUEGO");
+                            InterfazGrafica.mensajeProfe("Gracias por utilizar el sistema\n   Saddy Pacheco S.A.", "HASTA LUEGO");
                             //InterfazGrafica.mensajeExito("Gracias por utilizar el sistema","HASTA LUEGO");
 
                             break;
@@ -56,11 +55,11 @@ public class Main {
                             break;
                     }
                 } else {
-                    InterfazGrafica.mensajeAdvertencia("Opción no valida","ENTRADA INCORRECTA");
+                    InterfazGrafica.mensajeAdvertencia("Opción no valida", "ENTRADA INCORRECTA");
                     opcion = -1;
                 }
             } else {
-                InterfazGrafica.mensajeCancelar("Operación cancelada","CANCELADO");
+                InterfazGrafica.mensajeCancelar("Operación cancelada", "CANCELADO");
                 opcion = 6;
 
             }
@@ -81,10 +80,9 @@ public class Main {
 
         do {
 
-            //nombre = JOptionPane.showInputDialog();
-            nombre = InterfazGrafica.mensajeIngreso("Por favor ingrese el nombre del profesor","NOMBRE");
+            nombre = InterfazGrafica.mensajeIngreso("Por favor ingrese el nombre del profesor", "NOMBRE");
             if (nombre == null) {
-                InterfazGrafica.mensajeCancelar("Operación cancelada","CANCELADO");
+                InterfazGrafica.mensajeCancelar("Operación cancelada", "CANCELADO");
                 return;
             }
             profesor.setNombre(nombre);
@@ -250,6 +248,5 @@ public class Main {
                 gestorProfesor.buscarProfesorDni(Integer.valueOf(Integer.valueOf(input)));
             }
         }
-
     }
 }

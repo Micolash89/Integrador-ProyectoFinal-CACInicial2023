@@ -8,9 +8,6 @@ public class InterfazGrafica {
 
         ImageIcon icono = new ImageIcon("images/icono.png");
         icono = new ImageIcon(icono.getImage().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH));
-
-        //UIManager.put("Panel.background", Color.yellow);
-
         return (String) JOptionPane.showInputDialog(null,mensaje, titulo,JOptionPane.QUESTION_MESSAGE, icono, null, null);
 
     }
