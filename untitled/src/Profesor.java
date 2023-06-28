@@ -24,6 +24,18 @@ public class Profesor {
     }
 
     /*
+     * El constructor de la clase "Profesor" realiza una copia de otro objeto "Profesor" pasado como parámetro.
+     * Asigna los mismos valores de nombre, apellido, email, DNI y materia al nuevo objeto creado.
+     * */
+    public Profesor(Profesor p) {
+        this.nombre = p.nombre;
+        this.apellido = p.apellido;
+        this.email = p.email;
+        this.dni = p.dni;
+        this.materia = p.materia;
+    }
+
+    /*
      * El método getNombre retorna el valor del atributo nombre de la clase Profesor.
      * */
     public String getNombre() {

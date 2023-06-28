@@ -30,50 +30,82 @@ public class GestionProfesor {
     /*
      * El método actualizarProfesor(int indice) permite actualizar los datos de un profesor en la lista profesores.
      * Solicita al usuario que elija qué dato desea actualizar (nombre, apellido, email, DNI o materia) y realiza la actualización correspondiente en el profesor seleccionado.
-     *  Luego, guarda la lista actualizada en el archivo.
+     * Luego, guarda la lista actualizada en el archivo.
+     *
      * */
     public void actualizarProfesor(int indice) {
         int opcion;
+        Profesor profe = new Profesor(profesores.get(indice));
+        String input;
 
         do {
             opcion = Integer.valueOf(JOptionPane.showInputDialog(
                     "Por favor seleccione la opción a actualizar" +
-                            "\n Profesor:" + profesores.get(indice) +
+                            "\n Profesor:" + profe +
                             "\n1. Nombre" +
                             "\n2. Apellido" +
                             "\n3. E-mail" +
                             "\n4. DNI" +
                             "\n5. Materia" +
-                            "\n6. Salir"));
+                            "\n6. Salir y guardar profesor"));
             switch (opcion) {
                 case 1:
-                    String nombre = JOptionPane.showInputDialog("Por favor ingrese el nuevo nombre");
-                    if (validarNombre(nombre)) {
-                        profesores.get(indice).setNombre(nombre);
+                    input = JOptionPane.showInputDialog("Por favor ingrese el nuevo nombre");
+
+                    if (input == null) {
+                        JOptionPane.showMessageDialog(null, "Operación cancelada");
+                        return;
+                    }
+
+                    if (validarNombre(input)) {
+                        profe.setNombre(input);
                     }
                     break;
                 case 2:
-                    String apellido = JOptionPane.showInputDialog("Por favor ingrese el nuevo apellido");
-                    if (validarApellido(apellido)) {
-                        profesores.get(indice).setApellido(apellido);
+                    input = JOptionPane.showInputDialog("Por favor ingrese el nuevo apellido");
+
+                    if (input == null) {
+                        JOptionPane.showMessageDialog(null, "Operación cancelada");
+                        return;
+                    }
+
+                    if (validarApellido(input)) {
+                        profe.setApellido(input);
                     }
                     break;
                 case 3:
-                    String email = JOptionPane.showInputDialog("Por favor ingrese el nuevo E-mail");
-                    if (validarEmail(email)) {
-                        profesores.get(indice).setEmail(email);
+                    input = JOptionPane.showInputDialog("Por favor ingrese el nuevo E-mail");
+
+                    if (input == null) {
+                        JOptionPane.showMessageDialog(null, "Operación cancelada");
+                        return;
+                    }
+
+                    if (validarEmail(input)) {
+                        profe.setEmail(input);
                     }
                     break;
                 case 4:
-                    int dni = Integer.valueOf(JOptionPane.showInputDialog("Por favor ingrese el nuevo dni"));
-                    if (validarDni(dni)) {
-                        profesores.get(indice).setDni(dni);
+                    input = JOptionPane.showInputDialog("Por favor ingrese el nuevo dni");
+
+                    if (input == null) {
+                        JOptionPane.showMessageDialog(null, "Operación cancelada");
+                        return;
+                    }
+
+                    if (validarDni(Integer.valueOf(input))) {
+                        profe.setDni(Integer.valueOf(input));
                     }
                     break;
                 case 5:
-                    String materia = JOptionPane.showInputDialog("Por favor ingrese la nueva materia");
-                    if (validarMateria(materia)) {
-                        profesores.get(indice).setMateria(materia);
+                    input = JOptionPane.showInputDialog("Por favor ingrese la nueva materia");
+                    if (input == null) {
+                        JOptionPane.showMessageDialog(null, "Operación cancelada");
+                        return;
+                    }
+
+                    if (validarMateria(input)) {
+                        profe.setMateria(input);
                     }
                     break;
                 case 6:
@@ -83,6 +115,12 @@ public class GestionProfesor {
             }
 
         } while (opcion != 6);
+
+        if (profesores.contains(profe)) {
+            JOptionPane.showMessageDialog(null, "El profesor ya existe en la lista, no se puede actualizar");
+        } else {
+            profesores.set(indice, profe);
+        }
 
         miArchivoProfesor.actualizarProfesorArchivo(profesores);
     }

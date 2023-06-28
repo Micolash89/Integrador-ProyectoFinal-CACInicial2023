@@ -160,9 +160,11 @@ public class Main {
                     JOptionPane.showMessageDialog(null, "Operación cancelada");
                     return;
                 } else {
+
                     if (input.trim().equals("")) {
                         input = "-1";
                     }
+
                     indice = Integer.valueOf(input);
                 }
             } while (!gestorProfesor.validarIndice(indice));
