@@ -39,7 +39,7 @@ public class GestionProfesor {
         String input;
 
         do {
-            opcion = Integer.valueOf(JOptionPane.showInputDialog(
+            input = JOptionPane.showInputDialog(
                     "Por favor seleccione la opción a actualizar" +
                             "\n Profesor:" + profe +
                             "\n1. Nombre" +
@@ -47,16 +47,20 @@ public class GestionProfesor {
                             "\n3. E-mail" +
                             "\n4. DNI" +
                             "\n5. Materia" +
-                            "\n6. Salir y guardar profesor"));
+                            "\n6. Salir y guardar profesor");
+            if(input == null){
+                JOptionPane.showMessageDialog(null, "Operación cancelada");
+                return;
+            }
+                opcion = Integer.valueOf(input);
             switch (opcion) {
                 case 1:
                     input = JOptionPane.showInputDialog("Por favor ingrese el nuevo nombre");
 
                     if (input == null) {
                         JOptionPane.showMessageDialog(null, "Operación cancelada");
-                        return;
-                    }
 
+                    }else
                     if (validarNombre(input)) {
                         profe.setNombre(input);
                     }
@@ -66,9 +70,7 @@ public class GestionProfesor {
 
                     if (input == null) {
                         JOptionPane.showMessageDialog(null, "Operación cancelada");
-                        return;
-                    }
-
+                    }else
                     if (validarApellido(input)) {
                         profe.setApellido(input);
                     }
