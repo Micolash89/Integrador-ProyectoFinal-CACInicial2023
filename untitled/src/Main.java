@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.util.Scanner;
 
 public class Main {
     public static GestionProfesor gestorProfesor = new GestionProfesor();
@@ -13,60 +12,70 @@ public class Main {
     public static void main(String[] args) {
 
         int opcion;
-        String input;
 
         do {
-            input = InterfazGrafica.mensajeMenu("Bienvenido al sistema de gestión de profesores" +
-                            "\nPor favor seleccione una opción: " +
-                            "\n1. Agregar profesor" +
-                            "\n2. Mostrar profesor" +
-                            "\n3. Actualizar profesor" +
-                            "\n4. Eliminar profesor" +
-                            "\n5. Buscar profesor" +
-                            "\n6. Salir",
-                    "MENU PINRCIPAL");
+            opcion = menu();
+            switch (opcion) {
+                case 1:
+                    agregarProfesor();
+                    break;
+                case 2:
+                    mostrarProfesor();
 
-            if (input != null) {
-                if (input.trim().length() > 0) {
-                    opcion = Integer.valueOf(input);
-                    switch (opcion) {
-                        case 1:
-                            agregarProfesor();
-                            break;
-                        case 2:
-                            mostrarProfesor();
-                            break;
-                        case 3:
-                            actualizarProfesor();
-                            break;
-                        case 4:
-                            eliminarProfesor();
-                            break;
-                        case 5:
-                            buscarProfesor();
-                            break;
-                        case 6:
-                            InterfazGrafica.mensajeProfe("Gracias por utilizar el sistema\n   Saddy Pacheco S.A.", "HASTA LUEGO");
-                            //InterfazGrafica.mensajeExito("Gracias por utilizar el sistema","HASTA LUEGO");
+                    break;
+                case 3:
+                    actualizarProfesor();
+                    break;
+                case 4:
+                    eliminarProfesor();
+                    break;
+                case 5:
+                    buscarProfesor();
+                    break;
+                case 6:
+                    InterfazGrafica.mensajeProfe("Gracias por utilizar el sistema\n   Saddy Pacheco S.A.", "HASTA LUEGO");
+                    //InterfazGrafica.mensajeExito("Gracias por utilizar el sistema","HASTA LUEGO");
 
-                            break;
-                        default:
-                            JOptionPane.showMessageDialog(null, "Opción no válida");
-                            break;
-                    }
-                } else {
-                    InterfazGrafica.mensajeAdvertencia("Opción no valida", "ENTRADA INCORRECTA");
-                    opcion = -1;
-                }
-            } else {
-                InterfazGrafica.mensajeCancelar("Operación cancelada", "CANCELADO");
-                opcion = 6;
-
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "Opción no válida");
+                    break;
             }
 
         } while (opcion != 6);
 
     }
+
+    //////////////////////////////FUNCIONES////////////////////////////////////
+    public static int menu() {
+
+        String input = InterfazGrafica.mensajeMenu("Bienvenido al sistema de gestión de profesores" +
+                        "\nPor favor seleccione una opción: " +
+                        "\n1. Agregar profesor" +
+                        "\n2. Mostrar profesor" +
+                        "\n3. Actualizar profesor" +
+                        "\n4. Eliminar profesor" +
+                        "\n5. Buscar profesor" +
+                        "\n6. Salir",
+                "MENU PINRCIPAL");
+        if (input == null) {
+            System.exit(0); //para salir del programa si se cierra la ventana
+        }
+
+        if (input.trim().length() == 0) {
+            return -1;
+        }
+
+        try {
+            return Integer.valueOf(input);
+        } catch (NumberFormatException e) {
+            //si ingresa algun caracter no numericos o una cadena vacia
+            JOptionPane.showMessageDialog(null, "Error: Entrada inválida." + "\n" + "Ingrese solo un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            return -1;
+        }
+
+    }
+
 
     /*
      El método agregarProfesor() permite agregar un profesor al sistema solicitando al usuario que ingrese su nombre, apellido, email, DNI y materia,
@@ -137,11 +146,15 @@ public class Main {
     */
     public static void mostrarProfesor() {
 
+        Tabla.mostrarRegistrosEnTabla(gestorProfesor.getProfesores());
+        /*
         if (gestorProfesor.getProfesores().size() == 0) {
             JOptionPane.showMessageDialog(null, "No hay profesores en el sistema");
         } else {
             JOptionPane.showMessageDialog(null, gestorProfesor.listaString());
         }
+
+         */
     }
 
     /*

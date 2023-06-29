@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class GestionProfesor {
@@ -164,8 +163,6 @@ public class GestionProfesor {
     /*
      * El método listaString() genera una representación en forma de cadena de texto de la lista de profesores, numerándolos.
      * El método devuelve una cadena de texto con la lista de profesores.
-     *
-     *
      * */
     public String listaString() {
 
