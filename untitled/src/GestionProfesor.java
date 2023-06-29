@@ -15,14 +15,15 @@ public class GestionProfesor {
      * guarda el profesor en un archivo y muestra un mensaje de éxito o de que el profesor ya existe.
      * */
     public void cargarProfesores(Profesor profesor) {
+
         if (profesores.contains(profesor)) {
 
-            JOptionPane.showMessageDialog(null, "El profesor ya existe");
+            JOptionPane.showMessageDialog(null, "El profesor ya existe en el sistema");
 
         } else {
             profesores.add(profesor);
             miArchivoProfesor.altaProfesorArchivo(profesor);
-            InterfazGrafica.mensajeExito("Se agrego un profesor exitosamente","OPERACIÓN EXITOSA");
+            InterfazGrafica.mensajeExito("Se agrego un profesor exitosamente", "OPERACIÓN EXITOSA");
         }
     }
 
@@ -33,57 +34,88 @@ public class GestionProfesor {
      * */
     public void actualizarProfesor(int indice) {
         String input;
-        int opcion;
+        int opcion, dni;
+        Profesor profe = new Profesor(profesores.get(indice));
 
         do {
-            input = JOptionPane.showInputDialog(
-                    "Por favor seleccione la opción a actualizar" +
-                            "\n Profesor:" + profesores.get(indice) +
+            input = InterfazGrafica.mensajeIngreso(
+                     profe+
+                            "\n\nPor favor seleccione la opción a actualizar" +
                             "\n1. Nombre" +
                             "\n2. Apellido" +
                             "\n3. E-mail" +
                             "\n4. DNI" +
                             "\n5. Materia" +
-                            "\n6. Salir y guardar");
+                            "\n6. Salir y guardar"
+                            ,"MENU ACTUALIZAR");
 
             if (input == null) {
                 InterfazGrafica.mensajeCancelar("Operación cancelada\n no se actualizo ningun profesor", "Cancelado");
-                profesores.clear();
-                profesores = miArchivoProfesor.leerProfesoresArchivo();
                 return;
             }
 
-            opcion = Integer.valueOf(input);
+            try {
+                opcion = Integer.valueOf(input);
+            } catch (NumberFormatException e) {// si ingresa letras o una cadena vacia
+                opcion = -1;
+            }
 
             switch (opcion) {
                 case 1:
-                    String nombre = InterfazGrafica.mensajeIngreso("Por favor ingrese el nuevo nombre","NOMBRE");
-                    if (validarNombre(nombre)) {
-                        profesores.get(indice).setNombre(nombre);
+                    input = InterfazGrafica.mensajeIngreso("Por favor ingrese el nuevo nombre", "NOMBRE");
+
+                    if (input == null) {
+                        InterfazGrafica.mensajeCancelar("Operación cancelada", "CANCELADO");
+                    } else {
+                        if (validarNombre(input)) {
+                            profe.setNombre(input);
+                        }
                     }
                     break;
                 case 2:
-                    String apellido = InterfazGrafica.mensajeIngreso("Por favor ingrese el nuevo apellido","APELLIDO");
-                    if (validarApellido(apellido)) {
-                        profesores.get(indice).setApellido(apellido);
+                    //String apellido = InterfazGrafica.mensajeIngreso("Por favor ingrese el nuevo apellido", "APELLIDO");
+                    input = InterfazGrafica.mensajeIngreso("Por favor ingrese el nuevo apellido", "APELLIDO");
+                    if (input == null) {
+                        InterfazGrafica.mensajeCancelar("Operación cancelada", "CANCELADO");
+                    } else {
+                        if (validarApellido(input)) {
+                            profe.setApellido(input);
+                        }
                     }
                     break;
                 case 3:
-                    String email = InterfazGrafica.mensajeIngreso("Por favor ingrese el nuevo E-mail","E-MAIL");
-                    if (validarEmail(email)) {
-                        profesores.get(indice).setEmail(email);
+                    input = InterfazGrafica.mensajeIngreso("Por favor ingrese el nuevo E-mail", "E-MAIL");
+                    if (input == null) {
+                        InterfazGrafica.mensajeCancelar("Operación cancelada", "CANCELADO");
+                    } else {
+                        if (validarEmail(input)) {
+                            profe.setEmail(input);
+                        }
                     }
                     break;
                 case 4:
-                    int dni = Integer.valueOf(InterfazGrafica.mensajeIngreso("Por favor ingrese el nuevo DNI","DNI"));
-                    if (validarDni(dni)) {
-                        profesores.get(indice).setDni(dni);
+                    input = InterfazGrafica.mensajeIngreso("Por favor ingrese el nuevo DNI", "DNI");
+                    if (input == null) {
+                        InterfazGrafica.mensajeCancelar("Operación cancelada", "CANCELADO");
                     }
+                    try {
+                        dni = Integer.valueOf(input);
+                        if (validarDni(dni)) {
+                            profe.setDni(dni);
+                        }
+                    } catch (NumberFormatException e) {
+                        dni = -1;
+                        InterfazGrafica.mensajeAdvertencia("Ingrese numeros", "CUIDADO");
+                    }
+
                     break;
                 case 5:
-                    String materia = InterfazGrafica.mensajeIngreso("Por favor ingrese la nueva materia","MATERIA");
-                    if (validarMateria(materia)) {
-                        profesores.get(indice).setMateria(materia);
+                    input = InterfazGrafica.mensajeIngreso("Por favor ingrese la nueva materia", "MATERIA");
+                    if (input == null) {
+                        InterfazGrafica.mensajeCancelar("Operación cancelada", "CANCELADO");
+                    }
+                    if (validarMateria(input)) {
+                        profe.setMateria(input);
                     }
                     break;
                 case 6:
@@ -94,7 +126,13 @@ public class GestionProfesor {
 
         } while (opcion != 6);
 
-        miArchivoProfesor.actualizarProfesorArchivo(profesores);
+        if (profesores.contains(profe)) {
+            InterfazGrafica.mensajeCancelar("El profesor ya existe en la lista, no se puede actualizar", "ERROR");
+        } else {
+            InterfazGrafica.mensajeExito("Profesor actualizado con éxito", "CONFIRMADO");
+            profesores.set(indice, profe);// actualiza el profesor en la lista
+            miArchivoProfesor.actualizarProfesorArchivo(profesores);
+        }
     }
 
     /*
@@ -114,17 +152,14 @@ public class GestionProfesor {
      * */
     public void buscarProfesorDni(int dni) {
 
-        int bandera = 0;
-
         for (Profesor p : profesores) {
             if (p.getDni() == dni) {
                 JOptionPane.showMessageDialog(null, "Profesor encontrado con el DNI: " + dni + "\nDetalles del profesor:\n" + p.toString());
-                bandera = 1;
+                return;
             }
         }
-        if (bandera == 0) {
-            JOptionPane.showMessageDialog(null, "El profesor no existe");
-        }
+        JOptionPane.showMessageDialog(null, "El profesor no existe");
+
     }
 
     /*
@@ -133,24 +168,20 @@ public class GestionProfesor {
      * de lo contrario, muestra un mensaje indicando que el profesor no existe.
      * */
     public void buscarProfesorNombre(String nombre) {
-        if (nombre == null) {
-            JOptionPane.showMessageDialog(null, "Operación cancelada");
-        } else {
-            int bandera = 0;
-            int i = 0;
-            String lista = "";
-            for (Profesor p : profesores) {
-                if (p.getNombre().equalsIgnoreCase(nombre)) {
-                    lista += ++i + ". " + p.toString() + "\n";
-                    bandera = 1;
-                }
-            }
-            if (bandera == 0) {
-                JOptionPane.showMessageDialog(null, "El profesor no existe");
-            } else {
-                JOptionPane.showMessageDialog(null, "Se encontraron " + i + " Profesor/es con el nombre : " + nombre + "\n" + lista);
+        int i = 0;
+
+        String lista = "";
+        for (Profesor p : profesores) {
+            if (p.getNombre().equalsIgnoreCase(nombre)) {
+                lista += ++i + ". " + p.toString() + "\n";
             }
         }
+        if (lista.equals("")) {
+            InterfazGrafica.mensajeCancelar("No se encontraron profesores", "BUSCAR");
+        } else {
+            InterfazGrafica.mensajeMostrar("Se encontraron " + i + " Profesor/es con el nombre : " + nombre + "\n" + lista, "BUSCAR");
+        }
+
     }
 
     /*
@@ -183,7 +214,7 @@ public class GestionProfesor {
         if (nombre.trim().length() >= 2 && nombre.trim().length() <= 40) {
             return true;
         } else {
-            JOptionPane.showMessageDialog(null, "El nombre debe tener al menos 2 caracteres y no debe exceder los 40 caracteres");
+            InterfazGrafica.mensajeAdvertencia("El nombre debe tener al menos 2 caracteres y no debe exceder los 40 caracteres", "CUIDADO");
             return false;
         }
     }
@@ -196,7 +227,7 @@ public class GestionProfesor {
         if (apellido.trim().length() >= 2 && apellido.trim().length() <= 40) {
             return true;
         } else {
-            JOptionPane.showMessageDialog(null, "El apellido debe tener al menos 2 caracteres y no debe exceder los 40 caracteres");
+            InterfazGrafica.mensajeAdvertencia("El apellido debe tener al menos 2 caracteres y no debe exceder los 40 caracteres", "CUIDADO");
             return false;
         }
     }
@@ -211,25 +242,26 @@ public class GestionProfesor {
             if (email.contains("@")) {
                 return true;
             } else {
-                JOptionPane.showMessageDialog(null, "El email debe contener @ y no debe exceder los 40 caracteres");
+                InterfazGrafica.mensajeAdvertencia("El email debe contener @ y no debe exceder los 40 caracteres", "CUIDADO");
                 return false;
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "El email debe tener al menos 11 caracteres y no debe exceder los 40 caracteres");
+            InterfazGrafica.mensajeAdvertencia("El email debe tener al menos 11 caracteres y no debe exceder los 40 caracteres", "CUIDADO");
             return false;
         }
     }
 
     /*
      * El método validarDni(int dni) valida que el dni ingresado sea correcto.
-     * El dni debe ser mayor a 0 y menor a 99999999.
+     * El dni debe tener una cantidad de 8 digitos.
      * */
     public boolean validarDni(int dni) {
-        if (dni > 99999 && dni < 100000000) {
+        if (dni > 9999999 && dni < 100000000) {
             return true;
         } else {
-            JOptionPane.showMessageDialog(null, "El dni debe ser menor a 8 digitos y mayor a 0");
+
+            InterfazGrafica.mensajeAdvertencia("El dni debe tener una cantidad de 8 digitos", "CUIDADO");
             return false;
         }
     }
@@ -242,7 +274,7 @@ public class GestionProfesor {
         if (materia.trim().length() >= 2 && materia.trim().length() <= 60) {
             return true;
         } else {
-            JOptionPane.showMessageDialog(null, "La materia debe tener al menos 2 caracteres y no debe exceder los 60 caracteres");
+            InterfazGrafica.mensajeAdvertencia("La materia debe tener al menos 2 caracteres y no debe exceder los 60 caracteres", "CUIDADO");
             return false;
         }
     }
@@ -255,7 +287,7 @@ public class GestionProfesor {
         if (indice >= 1 && indice <= profesores.size()) {
             return true;
         } else {
-            JOptionPane.showMessageDialog(null, "El indice no valido");
+            InterfazGrafica.mensajeAdvertencia("El indice no valido", "CUIDADO");
             return false;
         }
     }
@@ -268,7 +300,7 @@ public class GestionProfesor {
         if (opcion >= 1 && opcion <= 2) {
             return true;
         } else {
-            JOptionPane.showMessageDialog(null, "Opción no valida");
+            InterfazGrafica.mensajeAdvertencia("Opción no valida", "CUIDADO");
             return false;
         }
     }

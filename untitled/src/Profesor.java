@@ -23,6 +23,14 @@ public class Profesor {
         this.materia = materia;
     }
 
+    public Profesor(Profesor profe) {
+        this.nombre = profe.nombre;
+        this.apellido = profe.apellido;
+        this.email = profe.email;
+        this.dni = profe.dni;
+        this.materia = profe.materia;
+    }
+
     /*
      * El método getNombre retorna el valor del atributo nombre de la clase Profesor.
      * */

@@ -5,9 +5,7 @@ public class Main {
 
     /*
      * El método main() permite ejecutar el sistema de gestión de profesores, solicitando al usuario que ingrese una opción.
-     * Es importante destacar que el sistema no controla errores en tiempo de ejecución, como por ejemplo la excepción NumberFormatException.
-     * Por lo tanto, es crucial que el usuario ingrese un número entero cuando se solicita, ya que cualquier otro tipo de entrada podría generar un error.
-     * Es responsabilidad del usuario asegurarse de ingresar un valor válido en forma de número entero para evitar problemas durante la ejecución del programa.
+     * Es importante destacar que el sistema controla errores en tiempo de ejecución, como por ejemplo la excepción NumberFormatException.
      * */
     public static void main(String[] args) {
 
@@ -21,7 +19,6 @@ public class Main {
                     break;
                 case 2:
                     mostrarProfesor();
-
                     break;
                 case 3:
                     actualizarProfesor();
@@ -38,7 +35,7 @@ public class Main {
 
                     break;
                 default:
-                    JOptionPane.showMessageDialog(null, "Opción no válida");
+                    InterfazGrafica.mensajeAdvertencia("Opción no válida", "CUIDADO");
                     break;
             }
 
@@ -62,15 +59,10 @@ public class Main {
             System.exit(0); //para salir del programa si se cierra la ventana
         }
 
-        if (input.trim().length() == 0) {
-            return -1;
-        }
-
         try {
             return Integer.valueOf(input);
         } catch (NumberFormatException e) {
             //si ingresa algun caracter no numericos o una cadena vacia
-            JOptionPane.showMessageDialog(null, "Error: Entrada inválida." + "\n" + "Ingrese solo un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
             return -1;
         }
 
@@ -83,60 +75,67 @@ public class Main {
      */
     public static void agregarProfesor() {
 
-        Profesor profesor = new Profesor();
-
-        String nombre, apellido, email, materia, dni;
+        Profesor profe = new Profesor();
+        String dni;
 
         do {
 
-            nombre = InterfazGrafica.mensajeIngreso("Por favor ingrese el nombre del profesor", "NOMBRE");
-            if (nombre == null) {
+            profe.setNombre(InterfazGrafica.mensajeIngreso("Por favor ingrese el nombre del profesor", "NOMBRE"));
+            if (profe.getNombre() == null) {
                 InterfazGrafica.mensajeCancelar("Operación cancelada", "CANCELADO");
                 return;
             }
-            profesor.setNombre(nombre);
-
-        } while (!gestorProfesor.validarNombre(profesor.getNombre()));
+        } while (!gestorProfesor.validarNombre(profe.getNombre()));
 
         do {
-            apellido = JOptionPane.showInputDialog("Por favor ingrese el apellido del profesor");
-            if (apellido == null) {
-                JOptionPane.showMessageDialog(null, "Operación cancelada");
+            profe.setApellido(InterfazGrafica.mensajeIngreso("Por favor ingrese el apellido del profesor", "APELLIDO"));
+            if (profe.getApellido() == null) {
+                InterfazGrafica.mensajeCancelar("Operación cancelada", "CANCELADO");
                 return;
             }
-            profesor.setApellido(apellido);
-        } while (!gestorProfesor.validarApellido(profesor.getApellido()));
+
+        } while (!gestorProfesor.validarApellido(profe.getApellido()));
 
         do {
-            email = JOptionPane.showInputDialog("Por favor ingrese e-mail del profesor");
-            if (email == null) {
-                JOptionPane.showMessageDialog(null, "Operación cancelada");
+            profe.setEmail(InterfazGrafica.mensajeIngreso("Por favor ingrese el e-mail del profesor", "E-MAIL"));
+            if (profe.getEmail() == null) {
+                InterfazGrafica.mensajeCancelar("Operación cancelada", "CANCELADO");
                 return;
             }
-            profesor.setEmail(email);
-        } while (!gestorProfesor.validarEmail(profesor.getEmail()));
+
+        } while (!gestorProfesor.validarEmail(profe.getEmail()));
 
         do {
-            dni = JOptionPane.showInputDialog("Por favor ingrese el DNI del profesor");
-            if (dni == null) {
-                JOptionPane.showMessageDialog(null, "Operación cancelada");
-                return;
+            try {
+                dni = InterfazGrafica.mensajeIngreso("Por favor ingrese el DNI del profesor", "DNI");
+
+                if (dni == null) {//el usuarion oprimio el boton de cancela/cerrar ventana
+                    InterfazGrafica.mensajeCancelar("Operación cancelada", "CANCELADO");
+                    return;
+                }
+
+                profe.setDni(Integer.valueOf(dni));//pasar la cadena a numero
+
+            } catch (NumberFormatException e) {//error al pasar la cade a numero, el usuario ingreso letras
+                profe.setDni(-1);
             }
-            profesor.setDni(Integer.valueOf(dni));
-        } while (!gestorProfesor.validarDni(profesor.getDni()));
+
+        } while (!gestorProfesor.validarDni(profe.getDni()));
 
         do {
-            materia = JOptionPane.showInputDialog("Por favor ingrese el Materia del profesor");
-            if (materia == null) {
-                JOptionPane.showMessageDialog(null, "Operación cancelada");
+            profe.setMateria(InterfazGrafica.mensajeIngreso("Por favor ingrese la Materia del profesor", "MATERIA"));
+            if (profe.getMateria() == null) {
+                InterfazGrafica.mensajeCancelar("Operación cancelada", "CANCELADO");
                 return;
             }
-            profesor.setMateria(materia);
-        } while (!gestorProfesor.validarMateria(profesor.getMateria()));
 
+        } while (!gestorProfesor.validarMateria(profe.getMateria()));
 
-        gestorProfesor.cargarProfesores(profesor);
-
+        if (gestorProfesor.getProfesores().contains(profe)) {
+            InterfazGrafica.mensajeCancelar("El profesor ya existe en el sistema", "CANCELADO");
+        } else {
+            gestorProfesor.cargarProfesores(profe);
+        }
     }
 
     /*
@@ -146,14 +145,15 @@ public class Main {
     */
     public static void mostrarProfesor() {
 
-        Tabla.mostrarRegistrosEnTabla(gestorProfesor.getProfesores());
+        Tabla.mostrarRegistrosEnTabla(gestorProfesor.getProfesores());//tabla para mostrar los profesores
+
+        //mostrar los profesores en un JOptionPane (descomentar y comentar la linea donde se invoca a la tabla )
         /*
         if (gestorProfesor.getProfesores().size() == 0) {
             JOptionPane.showMessageDialog(null, "No hay profesores en el sistema");
         } else {
             JOptionPane.showMessageDialog(null, gestorProfesor.listaString());
         }
-
          */
     }
 
@@ -165,26 +165,31 @@ public class Main {
 
         if (gestorProfesor.getProfesores().size() == 0) {
             JOptionPane.showMessageDialog(null, "No hay profesores en el sistema");
-        } else {
-            int indice;
-            String input;
-
-            do {
-                input = JOptionPane.showInputDialog(gestorProfesor.listaString() + "Por favor ingrese el indice del profesor a actualizar");
-                if (input == null) {
-                    JOptionPane.showMessageDialog(null, "Operación cancelada");
-                    return;
-                } else {
-                    if (input.trim().equals("")) {
-                        input = "-1";
-                    }
-                    indice = Integer.valueOf(input);
-                }
-            } while (!gestorProfesor.validarIndice(indice));
-
-            gestorProfesor.actualizarProfesor(indice - 1);
-
+            return;
         }
+        int indice;
+        String input;
+
+        do {
+            input = InterfazGrafica.mensajeIngreso(gestorProfesor.listaString() + "Por favor ingrese el indice del profesor a actualizar", "ACTUALIZAR");
+
+            //salir selecciona el boton de cancelar/cerrar ventana
+            if (input == null) {
+                InterfazGrafica.mensajeCancelar("Operación cancelada", "CANCELADO");
+                return;
+            }
+
+            try {
+                indice = Integer.valueOf(input);
+            } catch (NumberFormatException e) {//error si se ingresa una cadena vacia o letras
+                indice = -1;
+            }
+
+        } while (!gestorProfesor.validarIndice(indice));
+
+        gestorProfesor.actualizarProfesor(indice - 1);
+
+
     }
 
     /*
@@ -202,15 +207,18 @@ public class Main {
             do {
 
                 input = JOptionPane.showInputDialog(gestorProfesor.listaString() + "Por favor ingrese el indice del profesor a actualizar");
+
+                //salir selecciona el boton de cancelar/cerrar ventana
                 if (input == null) {
-                    JOptionPane.showMessageDialog(null, "Operación cancelada");
+                    InterfazGrafica.mensajeCancelar("Operación cancelada", "CANCELADO");
                     return;
                 }
-                if (input.trim().equals("")) {
-                    input = "-1";
-                }
 
-                indice = Integer.valueOf(input);
+                try {
+                    indice = Integer.valueOf(input);//error si se ingresa una cadena vacia o letras
+                } catch (NumberFormatException e) {
+                    indice = -1;
+                }
 
             } while (!gestorProfesor.validarIndice(indice));
 
@@ -223,43 +231,20 @@ public class Main {
      *  Solicita al usuario que elija el criterio de búsqueda y luego ingrese los datos correspondientes, invocando al método de búsqueda apropiado en gestorProfesor.
      * */
     public static void buscarProfesor() {
+        //si no hay objetos profesores en la lista
         if (gestorProfesor.getProfesores().size() == 0) {
-            JOptionPane.showMessageDialog(null, "No hay profesores en el sistema");
-        } else {
-            int opcion;
-            String input;
-
-            do {
-
-                input = JOptionPane.showInputDialog("Desea buscar por: " +
-                        "\n1. Nombre" +
-                        "\n2. DNI");
-                if (input == null) {
-                    JOptionPane.showMessageDialog(null, "Operación cancelada");
-                    return;
-                }
-                if (input.trim().equals("")) {
-                    input = "-1";
-                }
-                opcion = Integer.valueOf(input);
-
-            } while (!gestorProfesor.validarBuscar(opcion));
-
-            if (opcion == 1) {
-                gestorProfesor.buscarProfesorNombre(JOptionPane.showInputDialog("Ingrese nombre del profesor"));
-            } else {
-                do {
-                    input = JOptionPane.showInputDialog("Ingrese DNI del profesor");
-                    if (input == null) {
-                        JOptionPane.showMessageDialog(null, "Operación cancelada");
-                        return;
-                    }
-                    if (input.trim().equals("")) {
-                        input = "-1";
-                    }
-                } while (!gestorProfesor.validarDni(Integer.valueOf(input)));
-                gestorProfesor.buscarProfesorDni(Integer.valueOf(Integer.valueOf(input)));
-            }
+            InterfazGrafica.mensajeCancelar("No hay profesores en el sistema", "ERROR");
+            return;
         }
+        String input = InterfazGrafica.mensajeIngreso("Por favor ingrese nombre o numero de DNI del profesor", "BUSCAR");
+
+        try {
+            int dni = Integer.valueOf(input);
+            gestorProfesor.buscarProfesorDni(dni);
+        } catch (NumberFormatException e) {
+            gestorProfesor.buscarProfesorNombre(input);
+        }
+
     }
+
 }
