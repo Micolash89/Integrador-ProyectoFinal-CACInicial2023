@@ -16,7 +16,7 @@ public class GestionArchivo {
             buffer.write(profesor.toString());
             buffer.newLine();
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error al escribir en el archivo" + e.getMessage());
+            InterfazGrafica.mensajeCancelar("Error al escribir en el archivo" + e.getMessage(), "ERROR");
         }
     }
 
@@ -34,7 +34,7 @@ public class GestionArchivo {
                 profesores.add(profesor);
             }
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error al leer el archivo" + e.getMessage());
+            System.out.println("Error al leer el archivo" + e.getMessage());
         }
         return profesores;
     }
@@ -50,28 +50,28 @@ public class GestionArchivo {
                 buffer.newLine();
             }
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error al escribir en el archivo" + e.getMessage());
+            InterfazGrafica.mensajeCancelar("Error al escribir en el archivo" + e.getMessage(), "ERROR");
         }
     }
 
 
-    public static List<String> leerRegistros(){
+    public static List<String> leerRegistros() {
         //registros se inicializa como una lista vacia donde se van a almacenar los registros leidos
         List<String> registros = new ArrayList<>();
         //ruta del archivo desde el cual se van a leer los registros
 
-        try(BufferedReader leer = new BufferedReader(new FileReader(FILE_PATH))){
+        try (BufferedReader leer = new BufferedReader(new FileReader(FILE_PATH))) {
             //linea almacena cada linea leida del archivo
             String linea;
-            int indice = 1; // indice inicial
+            int indice = 0; // indice inicial
             //lee una linea de texto del archivo y la asigna a la variable... y verifica si el valor de linea es null(linea es null, significa que no hay más lineas)
-            while((linea = leer.readLine()) != null){
-                String registroConIndice =  indice + "," + linea; //agrega el indice y una coma al registro
+            while ((linea = leer.readLine()) != null) {
+                String registroConIndice = ++indice + "," + linea; //agrega el indice y una coma al registro
                 registros.add(registroConIndice);
-                indice++; // incrementar el indice para el siguiente registro
             }
-        }catch (IOException e){
-            System.out.println("No se pudo leer el archivo: " + e.getMessage());
+        } catch (IOException e) {
+            //muestra un mensaje de error si no se pudo leer el archivo
+            InterfazGrafica.mensajeCancelar("No se pudo leer el archivo: " + e.getMessage(), "ERROR");
         }
         return registros;
     }

@@ -2,9 +2,8 @@ import javax.swing.*;
 
 public class Main {
     public static GestionProfesor gestorProfesor = new GestionProfesor();
-
-    /*
-     * El método main() permite ejecutar el sistema de gestión de profesores, solicitando al usuario que ingrese una opción.
+    
+    /* El método main() permite ejecutar el sistema de gestión de profesores, solicitando al usuario que ingrese una opción.
      * Es importante destacar que el sistema controla errores en tiempo de ejecución, como por ejemplo la excepción NumberFormatException.
      * */
     public static void main(String[] args) {
@@ -30,12 +29,10 @@ public class Main {
                     buscarProfesor();
                     break;
                 case 6:
-                    InterfazGrafica.mensajeProfe("Gracias por utilizar el sistema\n   Saddy Pacheco S.A.", "HASTA LUEGO");
-                    //InterfazGrafica.mensajeExito("Gracias por utilizar el sistema","HASTA LUEGO");
-
+                    despedida();
                     break;
                 default:
-                    InterfazGrafica.mensajeAdvertencia("Opción no válida", "CUIDADO");
+                    opcionInvalida();
                     break;
             }
 
@@ -68,10 +65,8 @@ public class Main {
 
     }
 
-
-    /*
-     El método agregarProfesor() permite agregar un profesor al sistema solicitando al usuario que ingrese su nombre, apellido, email, DNI y materia,
-     validando cada uno de ellos antes de cargar al profesor en el sistema.
+    /* El método agregarProfesor() permite agregar un profesor al sistema solicitando al usuario que ingrese su nombre, apellido, email, DNI y materia,
+     * validando cada uno de ellos antes de cargar al profesor en el sistema.
      */
     public static void agregarProfesor() {
 
@@ -124,7 +119,7 @@ public class Main {
 
         do {
             profe.setMateria(InterfazGrafica.mensajeIngreso("Por favor ingrese la Materia del profesor", "MATERIA"));
-            if (profe.getMateria() == null) {
+            if (profe.getMateria() == null) {//el usuarion oprimio el boton de cancela/cerrar ventana
                 InterfazGrafica.mensajeCancelar("Operación cancelada", "CANCELADO");
                 return;
             }
@@ -138,27 +133,28 @@ public class Main {
         }
     }
 
-    /*
-    El método mostrarProfesor() muestra en una ventana de diálogo
-     todos los profesores que se encuentran en el sistema.
-     la lista de profesores almacenados en el sistema.
-    */
+
+    /* El método mostrarProfesor() muestra en una ventana de diálogo
+     * todos los profesores que se encuentran en el sistema.
+     * la lista de profesores almacenados en el sistema.
+     */
     public static void mostrarProfesor() {
 
-        Tabla.mostrarRegistrosEnTabla(gestorProfesor.getProfesores());//tabla para mostrar los profesores
+        //Tabla.mostrarRegistrosEnTabla(gestorProfesor.getProfesores());//tabla para mostrar los profesores
 
         //mostrar los profesores en un JOptionPane (descomentar y comentar la linea donde se invoca a la tabla )
-        /*
+
         if (gestorProfesor.getProfesores().size() == 0) {
-            JOptionPane.showMessageDialog(null, "No hay profesores en el sistema");
-        } else {
-            JOptionPane.showMessageDialog(null, gestorProfesor.listaString());
+            InterfazGrafica.mensajeCancelar("No hay profesores en el sistema", "CANCELADO");
+            return;
         }
-         */
+
+        InterfazGrafica.mensajeExito(gestorProfesor.listaString(), "LISTA DE PROFESORES");
+
+
     }
 
-    /*
-     * El método actualizarProfesor() permite actualizar los datos de un profesor existente en el sistema.
+    /* El método actualizarProfesor() permite actualizar los datos de un profesor existente en el sistema.
      * Solicita al usuario que ingrese el índice del profesor a actualizar y luego invoca al método correspondiente en gestorProfesor.
      * */
     public static void actualizarProfesor() {
@@ -167,6 +163,7 @@ public class Main {
             JOptionPane.showMessageDialog(null, "No hay profesores en el sistema");
             return;
         }
+
         int indice;
         String input;
 
@@ -199,14 +196,14 @@ public class Main {
     public static void eliminarProfesor() {
 
         if (gestorProfesor.getProfesores().size() == 0) {
-            JOptionPane.showMessageDialog(null, "No hay profesores en el sistema");
+            InterfazGrafica.mensajeCancelar("No hay profesores en el sistema", "CANCELADO");
         } else {
             int indice;
             String input;
 
             do {
 
-                input = JOptionPane.showInputDialog(gestorProfesor.listaString() + "Por favor ingrese el indice del profesor a actualizar");
+                input = InterfazGrafica.mensajeIngreso(gestorProfesor.listaString() + "Por favor ingrese el indice del profesor a eliminar", "ELIMINAR");
 
                 //salir selecciona el boton de cancelar/cerrar ventana
                 if (input == null) {
@@ -245,6 +242,18 @@ public class Main {
             gestorProfesor.buscarProfesorNombre(input);
         }
 
+    }
+
+    public static void despedida() {
+        //mensaje de despedida version profesor
+        InterfazGrafica.mensajeProfe("Gracias por utilizar el sistema\n   Saddy Pacheco S.A.", "HASTA LUEGO");
+
+        //mensaje de despedida version administrador
+        //InterfazGrafica.mensajeExito("Gracias por utilizar el sistema","HASTA LUEGO");
+    }
+
+    public static void opcionInvalida() {
+        InterfazGrafica.mensajeAdvertencia("Opción no válida", "CUIDADO");
     }
 
 }

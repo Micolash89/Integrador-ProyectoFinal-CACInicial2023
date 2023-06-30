@@ -1,6 +1,4 @@
 nicolas,nicolas,nicolas@dsadasdsa,12345678,dsadsadas
-dsads,dsadas,dsadas@dsadas,12345678,dasdsadsa
-nicolas,null,null,0,null
-nn,nico,nico@gmail.com,12345678,dsadsa
 dsadas,dsadas,dasda@dsadas,12345678,asddassd
-dsadsa,dsadas,dasdsa@dsadsa,12312313,ddsasdaas
+Saddy,pacheco,dashdasjk@das,11111111,JAVA FULL STACK
+nicolas javier,nicolas,dsadsa@gmai,36636509,JAVA intro

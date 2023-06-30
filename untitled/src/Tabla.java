@@ -9,7 +9,7 @@ import java.util.List;
 public class Tabla {
 
 
-    public static void mostrarRegistrosEnTabla(List <Profesor> misProfesores) {
+    public static void mostrarRegistrosEnTabla(List<Profesor> misProfesores) {
         //obtiene registros
         List<String> registros = GestionArchivo.leerRegistros();
 
