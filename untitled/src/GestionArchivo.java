@@ -6,8 +6,7 @@ import java.util.List;
 public class GestionArchivo {
     private static final String FILE_PATH = "profesores.txt";
 
-    /*
-     * El método altaProfesorArchivo(Profesor profesor) permite almacenar un profesor en el archivo.
+    /* El método altaProfesorArchivo(Profesor profesor) permite almacenar un profesor en el archivo.
      *  Además, guarda el profesor en un archivo y muestra un mensaje de éxito o de que el profesor ya existe.
      * */
     public void altaProfesorArchivo(Profesor profesor) {
@@ -20,8 +19,8 @@ public class GestionArchivo {
         }
     }
 
-    /*
-     * El método leerProfesoresArchivo() permite leer los profesores almacenados en el archivo.
+
+    /* El método leerProfesoresArchivo() permite leer los profesores almacenados en el archivo.
      *  Devuelve una lista con todos los profesores.
      * */
     public List<Profesor> leerProfesoresArchivo() {
@@ -39,8 +38,7 @@ public class GestionArchivo {
         return profesores;
     }
 
-    /*
-     * El método actualizarProfesorArchivo(List<Profesor> profesores) permite actualizar los profesores almacenados en el archivo.
+    /* El método actualizarProfesorArchivo(List<Profesor> profesores) permite actualizar los profesores almacenados en el archivo.
      *  Además, guarda la lista actualizada en el archivo.
      * */
     public void actualizarProfesorArchivo(List<Profesor> profesores) {
@@ -54,7 +52,11 @@ public class GestionArchivo {
         }
     }
 
-
+    /*
+    * El método leerRegistros() permite leer los registros almacenados en el archivo.
+    *  Devuelve una lista de tipo String con todos los registros.
+    * Se usa para la Clase Tabla
+    * */
     public static List<String> leerRegistros() {
         //registros se inicializa como una lista vacia donde se van a almacenar los registros leidos
         List<String> registros = new ArrayList<>();

@@ -140,17 +140,17 @@ public class Main {
      */
     public static void mostrarProfesor() {
 
-        Tabla.mostrarRegistrosEnTabla(gestorProfesor.getProfesores());//tabla para mostrar los profesores
+        //Tabla.mostrarRegistrosEnTabla(gestorProfesor.getProfesores());//tabla para mostrar los profesores
 
         //mostrar los profesores en un JOptionPane (descomentar y comentar la linea donde se invoca a la tabla )
-/*
+
         if (gestorProfesor.getProfesores().size() == 0) {
             InterfazGrafica.mensajeCancelar("No hay profesores en el sistema", "CANCELADO");
             return;
         }
 
         InterfazGrafica.mensajeExito(gestorProfesor.listaString(), "LISTA DE PROFESORES");
-*/
+
 
     }
 
