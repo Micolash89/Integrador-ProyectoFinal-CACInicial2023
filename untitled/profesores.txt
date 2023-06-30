@@ -1,4 +1,15 @@
-nicolas,nicolas,nicolas@dsadasdsa,12345678,dsadsadas
-dsadas,dsadas,dasda@dsadas,12345678,asddassd
-Saddy,pacheco,dashdasjk@das,11111111,JAVA FULL STACK
-nicolas javier,nicolas,dsadsa@gmai,36636509,JAVA intro
+Saddy,Pacheco,dashdasjk@das,11111111,JAVA FULL STACK
+Juan,Pérez,juanperez@email.com,22222222,Programación Orientada a Objetos
+Luisa,Gómez,luisagomez@email.com,33333333,Bases de Datos
+Maria,López,marialopez@email.com,44444444,Desarrollo Web
+Carlos,Rodríguez,carlosrodriguez@email.com,55555555,Inteligencia Artificial
+Andrea,García,andreagarcia@email.com,66666666,Desarrollo Móvil
+Pedro,Ramírez,pedroramirez@email.com,77777777,Análisis de Algoritmos
+Sofía,Martínez,sofiamartinez@email.com,88888888,Ingeniería de Software
+Javier,Hernández,javierhernandez@email.com,99999999,Redes de Computadoras
+Valeria,Torres,valeriatorres@email.com,12345678,Seguridad Informática
+Marcela,Fernández,marcelafernandez@email.com,23456789,Programación en C
+Ricardo,Navarro,ricardonavarro@email.com,34567890,Introducción a la Informática
+Ana,Mendoza,anamendoza@email.com,45678901,Ingeniería de Sistemas
+David,González,davidgonzalez@email.com,56789012,Desarrollo de Videojuegos
+Carmen,Ruiz,carmenruiz@email.com,67890123,Introducción a la Programaciónnicolas

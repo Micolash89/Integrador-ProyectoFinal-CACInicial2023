@@ -2,7 +2,7 @@ import javax.swing.*;
 
 public class Main {
     public static GestionProfesor gestorProfesor = new GestionProfesor();
-    
+
     /* El método main() permite ejecutar el sistema de gestión de profesores, solicitando al usuario que ingrese una opción.
      * Es importante destacar que el sistema controla errores en tiempo de ejecución, como por ejemplo la excepción NumberFormatException.
      * */
@@ -140,17 +140,17 @@ public class Main {
      */
     public static void mostrarProfesor() {
 
-        //Tabla.mostrarRegistrosEnTabla(gestorProfesor.getProfesores());//tabla para mostrar los profesores
+        Tabla.mostrarRegistrosEnTabla(gestorProfesor.getProfesores());//tabla para mostrar los profesores
 
         //mostrar los profesores en un JOptionPane (descomentar y comentar la linea donde se invoca a la tabla )
-
+/*
         if (gestorProfesor.getProfesores().size() == 0) {
             InterfazGrafica.mensajeCancelar("No hay profesores en el sistema", "CANCELADO");
             return;
         }
 
         InterfazGrafica.mensajeExito(gestorProfesor.listaString(), "LISTA DE PROFESORES");
-
+*/
 
     }
 
